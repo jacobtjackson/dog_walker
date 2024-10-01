@@ -29,3 +29,17 @@ end
 customers[76..99].each do |customer|
   Dog.create(name: Faker::Creature::Dog.name, breed: Faker::Creature::Dog.breed, days_of_week: %w[Monday], time_period: %w[am pm], customer: customer)
 end
+
+9.times do 
+  User.create(name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password)
+end
+
+users = User.all
+week = Date.today.all_week
+
+week.each do |day|
+  users.each do |u|
+    u.shifts.create(shift_date: day, shift_type: 'am')
+    u.shifts.create(shift_date: day, shift_type: 'pm')
+  end
+end
