@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "esbuild app/javascript/* --bundle --outdir=app/assets/builds"
+  },
+  "dependencies": {
+    "esbuild": "^0.24.0",
+    "flowbite": "^2.5.2"
+  }
+}

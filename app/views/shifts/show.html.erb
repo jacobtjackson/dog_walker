@@ -1,0 +1,46 @@
+<div class='flex w-full h-full'>
+    <div class='w-3/4 h-full bg-white p-3'>    
+        <h1 class='text-xl font-bold'>Schedule for <%= current_user.name %>, <%= @date.strftime('%A, %b %d, %Y') %> (<%= @shift_type.upcase %>)</h1>
+        <%= link_to 'See All Shifts', edit_shift_path(date: @date, time_of_day: @shift_type) if current_user&.is_manager? %>
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Dog's Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Breed
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @shift.dogs.each do |dog| %>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" data-controller='dogs'>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <%= dog.name %>
+                            </th>
+                            <td class="px-6 py-4">
+                                <%= dog.breed %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <%= form_for dog, method: :put do |f| %>
+                                    <%= f.select :status, Dog.statuses.map { |k, v| [k.humanize, k] }, {}, { data: { action: 'change->dogs#changeStatus', value: "#{dog.id}" } } %>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class='flex flex-col w-1/4 h-full ml-5' data-controller='dogs'>
+        <span class='text-xl font-bold'>Update All Dogs</span>
+        <%= form_with url: bulk_update_dogs_url, method: :put do |f| %>
+            <%= f.select :status, Dog.statuses.map { |k, v| [k.humanize, k] }, { prompt: 'Choose a status'}, { data: { action: 'change->dogs#bulkUpdateStatus', value: @shift.dogs.pluck(:id) } } %>
+        <% end %>
+    </div>
+</div>

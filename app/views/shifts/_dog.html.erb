@@ -1,0 +1,14 @@
+<div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <%# <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="/docs/images/blog/image-4.jpg" alt=""> %>
+    <div class="flex flex-col justify-between p-4 leading-normal w-full">
+        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"><%= dog.name %></h5>
+        <div class="mb-3 font-normal text-gray-700 dark:text-gray-400 flex flex-col">
+            Breed: <%= dog.breed %>
+        </div>
+        <% if shift %>
+            <%= link_to delete_dog_shift_path(id: shift.id, dog_id: dog.id), { data: { turbo_method: :delete }, class: 'self-end' } do %>
+                <%= image_tag('trash_icon.svg', 'data-svg-fallback': asset_path('trash_icon.svg'), height: 20, width: 20, class: '') %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

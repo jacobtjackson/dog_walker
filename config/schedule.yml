@@ -1,0 +1,3 @@
+add_shifts_job:
+  cron: 'every Monday at 8 am'
+  class: 'AddShiftsJob'

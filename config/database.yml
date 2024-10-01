@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV['RAILS_MAX_THREADS'] { 5 } %>
+
+development:
+  <<: *default
+  database: dog_walker_development
+
+test:
+  <<: *default
+  database: dog_walker_test
+
+production:
+  <<: *default
+  database: dog_walker_production
+  username: <%= ENV['DOGWALKER_DB_USERNAME'] %>
+  password: <%= ENV['DOGWALKER_DB_PASSWORD'] %>

@@ -1,0 +1,21 @@
+<div class='flex-col flex w-full h-full' >
+    <div class='flex'>
+        <%= link_to dashboard_path(start_date: @week.first - 1.week), class: 'self-center' do %>
+            <%= image_tag('angle_left.svg', 'data-svg-fallback': asset_path('angle_left.svg'), height: 20, width: 20, ) %>
+        <% end %>
+        <div class='border-2 p-2'><%= @week.first.strftime('%A, %b %d') %> - <%=@week.last.strftime('%A, %b %d') %></div>
+        <%= link_to dashboard_path(start_date: @week.first + 1.week), class: 'self-center' do %>
+            <%= image_tag('angle_right.svg', 'data-svg-fallback': asset_path('angle_right.svg'), height: 20, width: 20, ) %>
+        <% end %>
+    </div>
+    <h1 class='text-xl font-bold'>Schedule</h1>
+    <div class='w-full columns-7 h-full'>
+        <% @week.each do |day| %>
+            <span><%= day.strftime('%A, %b %d') %></span>
+            <div class='border-2 flex flex-col rounded h-96'>
+                <%= button_to 'AM', shift_path(date: day), params: { time_of_day: 'am' }, type: 'button', class: 'focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 border-b-2 place-content-center w-full h-full', method: :get, form_class: 'h-1/2' %>
+                <%= button_to 'PM', shift_path(date: day), params: { time_of_day: 'pm' }, type: 'button', class: 'focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 h-1/2 place-content-center w-full h-full', method: :get, form_class: 'h-1/2' %>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  button {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+@layer base {
+  a {
+    @apply text-green-300 underline
+  }
+}
+
+body {
+  background-color: #EAF0F6;
+}
+

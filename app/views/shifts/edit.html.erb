@@ -1,0 +1,19 @@
+<div class='flex-col flex w-full h-full'>
+    <h1 class='text-xl font-bold'>Schedule for <%= @date.strftime('%A, %b %d, %Y') %> (<%= @shift_type.upcase %>)</h1>
+    <span><%= @date.strftime('%A, %b %d, %Y') %></span>
+    <div class='grid grid-cols-5 gap-2 auto-rows-max'>
+        <% @shifts.each do |shift| %>
+            <div id="shift_container_<%= shift.id %>">
+                <%= render partial: 'shifts/shift', locals: { shift: shift } %>
+            </div>
+        <% end %>
+    </div>
+
+    <div class='w-full flex flex-col mt-10'>
+        <span class='text-xl font-bold'>Dogs To Allocate</span>
+        <div class='grid grid-cols-10 mt-5 '>
+        <% @unallocated_dogs.each do |dog| %> 
+             <%= render partial: 'dog', locals: { dog: dog, shift: nil } %>
+        <% end %>
+    </div>
+</div>
